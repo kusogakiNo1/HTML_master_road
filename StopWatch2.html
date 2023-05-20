@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+
+    <!-- bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/StopWatch.css">
+</head>
+<body>
+    <div class="container">
+        <p id="timer">00:00:00</p><!--JavaScriptと連携するためにid属性を付与-->
+       
+        
+
+        <div>
+            <button id="start_stop" class="btn btn-lg btn-primary">START</button>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+
+
+    
+
+    <script>
+        
+        var start; //グローバル変数。Javaでいうところのフィールド
+        var timer_id;
+        document.getElementById('start_stop').addEventListener('click',function(){
+            if(this.innerHTML === 'START'){
+                start = new Date();
+
+
+
+                //goTimerというメソッドを、10ミリ秒ごとに繰り返すという処理
+                setInterval(goTimer, 10);//1 = 1/1000秒(1ミリ秒)
+
+                //STOPボタンにする処理
+                //↓のthis.は、start_stopのidを持っているこの要素を表している
+                this.innerHTML = 'STOP';//中身の変更
+                this.classList.remove('btn-primary');
+                this.classList.add('btn-danger');//classを取り除いて、追加した
+            
+            }else{
+
+                clearInterval(timer_id);//start時にセットしたインターバルを解除
+                //STARTボタンにする処理
+                this.innerHTML = 'START';//中身の変更
+                this.classList.remove('btn-danger');
+                this.classList.add('btn-primary');//classを取り除いて、追加した
+
+            }
+
+            
+                    
+        })      
+
+
+        //addZero:数字が一桁の時に前に0を付ける処理
+        var addZero = function(value){
+            if(value < 10){
+                value = '0' + value;
+            }
+            return value;
+        }
+
+        var goTimer = function(){
+            //現在時間の取得
+           var now = new Date();
+
+           var milli = now.getTime() - start.getTime();//startボタンを押してからの経過時間を算出
+           var seconds = Math.floor(milli / 1000);//Math.floor:数字の小数点以下を切り捨てるメソッド
+           var minutes  = Math.floor(seconds / 60);
+           var hours = Math.floor(minutes / 60);
+            
+           //時間の繰り上がりによる切り捨ての処理
+            seconds = seconds - minutes * 60;
+            minutes = minutes - hours * 60;
+
+            //addZero処理
+            hours = addZero(hours);
+            minutes = addZero(minutes);
+            seconds = addZero(seconds);
+
+           
+           //時間の表示
+           document.getElementById('timer').innerHTML = hours + ':' + minutes + ':' + seconds;
+        }
+
+    </script>
+    
+
+
+</body>
+</html>
+
+<!-- うひょひょひょひょひょひょ～～～～～～い！！！！！！！！ -->

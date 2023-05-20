@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+
+    <!-- bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/StopWatch.css">
+</head>
+<body>
+    <div class="container">
+        <p id="timer">00:00:01</p><!--JavaScriptと連携するためにid属性を付与-->
+       
+        
+
+        <div>
+            <button id="start_stop" class="btn btn-lg btn-primary">START</button>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+
+
+    
+
+    <script>
+        //1桁の時間の頭に0を追加する関数(function)を追加
+        //JavaScriptでは、下のような書き方で、変数的に関数を定義できる。
+        var addZero = function(value){
+            if (value < 10){
+                value = '0' + value;
+            }
+            return value;
+            //functionでは、returnを書いて返り値(戻り値)を設定させる必要がある。
+        }
+        //豆知識:別のfunctionの定義法
+        //function addZero(value){
+        //
+        //}    
+
+        //start_stopのid属性を持つ要素に、クリックに対するイベントリスナー(感知人)を設置。クリック時の処理は中に。
+        //addEventListenerの後は、1つ目がイベント名、二つ目が関数。今回は「無名関数」
+        document.getElementById('start_stop').addEventListener('click', function() {
+            var now = new Date();//インスタンス作成(おそらく)
+
+            var seconds = now.getSeconds();//秒を取得
+            seconds = addZero(seconds);
+
+            var minutes = now.getMinutes();//分を取得
+            minutes = addZero(minutes);
+
+            var hours = now.getHours();//時を表示
+            hours = addZero(hours);
+
+            //豆知識:docuiment.writeは、一度出力すると基本は消せない。
+            //豆知識:scriptは分かりやすいようにbodyの最後に来がち。
+            document.getElementById('timer').innerHTML = hours + ':' + minutes + ':' + seconds;
+            //getElementByIdメソッド:id属性から要素を獲得する
+            //上で手に入れた要素をオブジェクトとして、innerHTMLなどが発動
+            //このように、数珠つなぎ的に、前から順にどんどんメソッドが発動していく
+            //innerHTMLはメソッドではなく、プロパティ。id=timerの内容を00:00:01に書き換えている。
+            //メソッド:動きを表すもの
+            //プロパティ:見た目をいじるもの
+
+        });
+        //あくまでaddEventListenerの行の終わりであるから、セミコロンを忘れずに。        
+
+    </script>
+    
+
+
+</body>
+</html>
